@@ -2,12 +2,14 @@
 #define VEHICLE_H
 
 #include <iostream>
-#include "structs/Position.h"
+#include "classes\Vector2.h"
 
 class Vehicle {
     private:
         unsigned int id;
-        Position position;
+        Vector2 position;
+    public:
+        
 
 };
 

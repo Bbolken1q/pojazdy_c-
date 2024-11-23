@@ -1,10 +1,10 @@
 #include "MovementVector.h"
-#include "Position.h"
+#include "Vector2.h"
 #include <cmath>
 
-Position MovementVector::getEndOfVectorAsInteger() {
-    Position integerPosition;
+Vector2 MovementVector::getEndOfVectorAsInteger() {
+    Vector2 integerPosition;
     integerPosition.x = cos(this->angle)*this->length;
     integerPosition.y = sin(this->angle)*this->length;
-    return this->
+    return this->position + integerPosition;
 }

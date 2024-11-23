@@ -2,14 +2,14 @@
 #define MOVEMENT_VECTOR_H
 
 #include <iostream>
-#include "Position.h"
+#include "Vector2.h"
 
 class MovementVector {
     public:
-        Position position;
+        Vector2 position;
         int length;
         float angle;
-        Position getEndOfVectorAsInteger();
+        Vector2 getEndOfVectorAsInteger();
 };
 
 #endif
