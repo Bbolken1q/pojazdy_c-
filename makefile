@@ -1,5 +1,5 @@
 all:
-	g++ -c main.cpp -o out/main.o
-	g++ -c classes/*.cpp
+	g++ -c -std=gnu++17 main.cpp -o out/main.o
+	g++ -c -std=gnu++17 classes/*.cpp
 	move *.o out/
-	g++ -o main.exe out/*.o
+	g++ -std=gnu++17 -o main.exe out/*.o
