@@ -1,5 +1,6 @@
 #ifndef MOVEMENT_VECTOR_H
 #define MOVEMENT_VECTOR_H
+#pragma once
 
 #include <iostream>
 #include "Vector2.h"
