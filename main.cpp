@@ -4,9 +4,6 @@
 #include <typeinfo>
 #include <any>
 #include "classes/ArgumentHelper.h"
-<<<<<<< HEAD
-#include <any>
-=======
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <functional>
@@ -23,7 +20,6 @@ SDL_Window* window = SDL_CreateWindow(window_name.c_str(), SDL_WINDOWPOS_UNDEFIN
 SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0); // init 
 SDL_Event e; // event object
 bool running = true;
->>>>>>> 09da8a8ef5c24aeee9082170a78b2a61a9c15ee1
 
 int main(int argc, char *argv[]) {
 
@@ -38,12 +34,6 @@ int main(int argc, char *argv[]) {
 
     for(const auto& elem : args->argValues)
     {
-<<<<<<< HEAD
-        std::cout << elem.first << " " << elem.second.typeInfo.name() << " " << std::any_cast<const char*>(elem.second.value) << "\n";
-    }
-
-    std::cout << "Running with " << std::to_string(argc-1) << " argument(s)";
-=======
         std::cout << elem.first << " " << elem.second.typeInfo.name() << " " << atoi(std::any_cast<const char*>(elem.second.value)) << "\n";
     }
 
@@ -55,7 +45,6 @@ int main(int argc, char *argv[]) {
     RenderPipeline pipeline;
 
     auto renderThread = std::async(display, &running, pipeline, renderer); 
->>>>>>> 09da8a8ef5c24aeee9082170a78b2a61a9c15ee1
     // getch();
     return 0;
 }
