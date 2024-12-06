@@ -5,6 +5,7 @@
 void RenderPipeline::Dodaj_pole(RenderImage* image /*image to add*/) { // dodaje pole do 
     obrazki.push_back(image);
 }
+
 void RenderPipeline::displayPipeline(SDL_Renderer *renderer /*window renderer instance*/) {
     SDL_RenderClear(renderer);
     for(int i = 0; i < obrazki.size(); i++)
@@ -14,6 +15,7 @@ void RenderPipeline::displayPipeline(SDL_Renderer *renderer /*window renderer in
     }
     SDL_RenderPresent(renderer); // finalize renderer
 }
+
 void RenderPipeline::removeFromPipeline(std::string idToRemove /*id of element to remove*/, SDL_Renderer *renderer /*window renderer instance*/) {
     for(int i = 0; i < obrazki.size(); i++) // loop through array to find element
     {

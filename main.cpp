@@ -32,19 +32,35 @@ int main(int argc, char *argv[]) {
 
     ArgumentHelper *args = new ArgumentHelper(argc, argv, flagmap);
 
-    for(const auto& elem : args->argValues)
-    {
-        std::cout << elem.first << " " << elem.second.typeInfo.name() << " " << atoi(std::any_cast<const char*>(elem.second.value)) << "\n";
-    }
+    // for(const auto& elem : args->argValues)
+    // {
+    //     std::cout << elem.first << " " << elem.second.typeInfo.name() << " " << atoi(std::any_cast<const char*>(elem.second.value)) << "\n";
+    // }
 
-    std::cout << "Running with " << std::to_string(argc-1) << " argument(s)";
+    std::cout << "Running with " << std::to_string(argc-1) << " argument(s)" << std::endl;
 
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_PNG);
 
     RenderPipeline pipeline;
 
-    auto renderThread = std::async(display, &running, pipeline, renderer); 
-    // getch();
+    
+
+    SDL_Rect box_position = {400, 400, 400, 400};
+    RenderImage red_box(IMG_Load("assets/obrazek.png"), &box_position, "red_box", renderer);
+    pipeline.Dodaj_pole(&red_box);
+    // pipeline.displayPipeline(renderer);
+    // SDL_RenderPresent(renderer);
+
+    auto renderThread = std::async(display, &running, pipeline, renderer, *args);
+    while (SDL_PollEvent(&e))
+    {
+    	switch(e.type) {
+            case SDL_QUIT: {
+                running = false;
+                break;
+            } 
+        }
+    } 
     return 0;
 }
