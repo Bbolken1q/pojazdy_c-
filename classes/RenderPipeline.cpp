@@ -10,7 +10,7 @@ void RenderPipeline::displayPipeline(SDL_Renderer *renderer /*window renderer in
     SDL_RenderClear(renderer);
     for(int i = 0; i < obrazki.size(); i++)
     {
-        //std::cout<<"Attempting to draw image with id: "<<obrazki.at(i)->id<<std::endl;
+        std::cout<<"Attempting to draw image with id: "<<obrazki.at(i)->id<<std::endl;
         SDL_RenderCopy(renderer, obrazki.at(i)->image, NULL, obrazki.at(i)->position);
     }
     SDL_RenderPresent(renderer); // finalize renderer

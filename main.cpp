@@ -11,15 +11,13 @@
 #include <thread>
 #include "classes/SDLHelperFunctions.h"
 #include "classes/RenderPipeline.h"
+#include "classes/SDLEventManager.h"
 
 std::string window_name = "Pojazdy";
 
 using function = std::function<void()>;
-Uint32 window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
-SDL_Window* window = SDL_CreateWindow(window_name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640*2, 480*2, window_flags); // create renderer & window;
-SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0); // init 
-SDL_Event e; // event object
-bool running = true;
+Uint32 window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_GRABBED;
+
 
 int main(int argc, char *argv[]) {
 
@@ -39,8 +37,13 @@ int main(int argc, char *argv[]) {
 
     // std::cout << "Running with " << std::to_string(argc-1) << " argument(s)" << std::endl;
 
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
+
+    SDL_Window* window = SDL_CreateWindow(window_name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640*2, 480*2, window_flags); // create renderer & window;
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0); // init 
+    SDL_Event e; // event object
+    bool running = true;
 
     RenderPipeline pipeline;
 
@@ -52,23 +55,20 @@ int main(int argc, char *argv[]) {
 
     auto renderThread = std::async(display, &running, pipeline, renderer, *args);
     while (SDL_PollEvent(&e) > 0) {
-    	switch(e.type) {
-            case SDL_QUIT: {
-                running = false;
-                break;
-            } 
-        }
+    	EventHandler(e, &running, renderer, window);
     } 
 
-    // while(true)
-    // {
-    //     move_by(box_position, SDL_Rect{400, 400, 400, 400}, 30);
-    //     SDL_Delay(500);
-    //     move_by(box_position, SDL_Rect{200, 400, 400, 400}, 30);
-    //     SDL_Delay(500);
-    // }
+    while(true)
+    {
+        move_by(box_position, SDL_Rect{400, 400, 400, 400}, 30);
+        SDL_Delay(500);
+        move_by(box_position, SDL_Rect{200, 400, 400, 400}, 30);
+        SDL_Delay(500);
+    }
 
-    SDL_Delay(10000);
+    // SDL_Delay(3000);
+
+    running = false;
 
     return 0;
 }
