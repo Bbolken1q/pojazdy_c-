@@ -37,24 +37,21 @@ int main(int argc, char *argv[]) {
     //     std::cout << elem.first << " " << elem.second.typeInfo.name() << " " << atoi(std::any_cast<const char*>(elem.second.value)) << "\n";
     // }
 
-    std::cout << "Running with " << std::to_string(argc-1) << " argument(s)" << std::endl;
+    // std::cout << "Running with " << std::to_string(argc-1) << " argument(s)" << std::endl;
 
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_PNG);
 
     RenderPipeline pipeline;
 
-    
-
     SDL_Rect box_position = {400, 400, 400, 400};
-    RenderImage red_box(IMG_Load("assets/obrazek.png"), &box_position, "red_box", renderer);
-    pipeline.Dodaj_pole(&red_box);
+    RenderImage *red_box = new RenderImage(IMG_Load("assets/obrazek.png"), &box_position, "red_box", renderer);
+    pipeline.Dodaj_pole(red_box);
     // pipeline.displayPipeline(renderer);
     // SDL_RenderPresent(renderer);
 
     auto renderThread = std::async(display, &running, pipeline, renderer, *args);
-    while (SDL_PollEvent(&e))
-    {
+    while (SDL_PollEvent(&e) > 0) {
     	switch(e.type) {
             case SDL_QUIT: {
                 running = false;
@@ -62,5 +59,16 @@ int main(int argc, char *argv[]) {
             } 
         }
     } 
+
+    // while(true)
+    // {
+    //     move_by(box_position, SDL_Rect{400, 400, 400, 400}, 30);
+    //     SDL_Delay(500);
+    //     move_by(box_position, SDL_Rect{200, 400, 400, 400}, 30);
+    //     SDL_Delay(500);
+    // }
+
+    SDL_Delay(10000);
+
     return 0;
 }
